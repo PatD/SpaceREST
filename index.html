@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>SPACEREST</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/spacerest.css">
+
+
+</head>
+
+<body>
+   
+    
+    
+  <nav class="navbar navbar-light navbar-fixed-top">
+    <nav class="nav-item pull-xs-right" id="scorebox">Score: <span id="userScore">0</span> of 687</nav>
+    
+    <button type="button" class="navbar-toggler hidden-sm-up" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    
+    <nav class="nav navbar-nav pull-xs-left">
+    
+      <a class="nav-item nav-link" href="home" data-navigo>SpaceREST</a>
+      <a class="nav-item nav-link" href="landing" data-navigo>landing</a>
+      <a class="nav-item nav-link" href="landing/rovers" data-navigo>Rovers</a>
+      <a class="nav-item nav-link" href="landing/asteroids" data-navigo>Asteroids</a>
+      <a class="nav-item nav-link" href="about">About</a>
+      
+     </nav>
+  
+  </nav>
+    
+    
+    
+    
+  <!-- Opening screen -->
+    <div class="container-fluid" id="screen-title" style="visibility:hidden">
+    
+      <h1>Space <div>REST</div></h1>
+      <h3>A throwback adventure, powered by <a href="https://api.nasa.gov/">NASA.gov's APIs</a></h3>
+      <h4>Copyright 2016 <a href="http://patrickdoran.com">Patrick Doran</a></h4>
+      <span>Press Enter to begin</span>
+
+    </div>
+
+
+
+  <!-- Landing screen -->
+  
+    <div class="container-fluid" id="screen-landing" style="visibility:hidden">
+        <h2>Landing</h2>
+        <h3>page</h3>
+         
+         
+        <div id="screen-landing-asteroids">
+          <h5>Asteroids</h5>
+          
+          <p>There are <span id="asteroidCount"></span> objects near us today</p>
+          
+          <div id="asteroidListing"></div>
+        </div>
+        
+        <div id="screen-landing-rovers">
+          <h5>Rovers</h5>
+        </div>
+         
+    </div>
+
+
+
+
+    
+  <!-- background photo -->    
+    <div class="container-fluid" id="screen-background">
+      <img src="#" id="backgroundAPOD" alt="NASA Photo of the day" />
+    </div>
+      
+      
+ 
+      
+      
+      
+      
+
+        
+
+    
+    
+    
+      
+      
+    <footer class="footer bg-inverse" id="screen-parser" style="visibility:hidden;">
+      <div class="container">
+        <span class="text-muted" id="parser">></span> <input id="textParser" type="text" />
+      </div>
+    </footer>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+
+
+    
+    
+    
+    <!-- div className="container-fluid">
+      
+      
+      <div className="row">
+        <div className="col-sm-3 col-md-2 sidebar">
+          <ul>
+            <li>Left Nav</li>
+          </ul>
+        </div>
+      
+         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            
+         </div>
+       </div>
+    </div -->
+    
+    
+    
+    <!-- div class="container-fluid">
+        
+  
+        
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul>
+            <li>Left Nav</li>
+          </ul>
+        </div>
+        
+        
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+                  <div id='root'></div>
+
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-fluid" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-fluid" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-fluid" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-fluid" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+          </div>
+
+          <h2>Section title</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                </tr>
+                <tr>
+                  <td>1,004</td>
+                  <td>dapibus</td>
+                  <td>diam</td>
+                  <td>Sed</td>
+                  <td>nisi</td>
+                </tr>
+                <tr>
+                  <td>1,005</td>
+                  <td>Nulla</td>
+                  <td>quis</td>
+                  <td>sem</td>
+                  <td>at</td>
+                </tr>
+                <tr>
+                  <td>1,006</td>
+                  <td>nibh</td>
+                  <td>elementum</td>
+                  <td>imperdiet</td>
+                  <td>Duis</td>
+                </tr>
+                <tr>
+                  <td>1,007</td>
+                  <td>sagittis</td>
+                  <td>ipsum</td>
+                  <td>Praesent</td>
+                  <td>mauris</td>
+                </tr>
+                <tr>
+                  <td>1,008</td>
+                  <td>Fusce</td>
+                  <td>nec</td>
+                  <td>tellus</td>
+                  <td>sed</td>
+                </tr>
+                <tr>
+                  <td>1,009</td>
+                  <td>augue</td>
+                  <td>semper</td>
+                  <td>porta</td>
+                  <td>Mauris</td>
+                </tr>
+                <tr>
+                  <td>1,010</td>
+                  <td>massa</td>
+                  <td>Vestibulum</td>
+                  <td>lacinia</td>
+                  <td>arcu</td>
+                </tr>
+                <tr>
+                  <td>1,011</td>
+                  <td>eget</td>
+                  <td>nulla</td>
+                  <td>Class</td>
+                  <td>aptent</td>
+                </tr>
+                <tr>
+                  <td>1,012</td>
+                  <td>taciti</td>
+                  <td>sociosqu</td>
+                  <td>ad</td>
+                  <td>litora</td>
+                </tr>
+                <tr>
+                  <td>1,013</td>
+                  <td>torquent</td>
+                  <td>per</td>
+                  <td>conubia</td>
+                  <td>nostra</td>
+                </tr>
+                <tr>
+                  <td>1,014</td>
+                  <td>per</td>
+                  <td>inceptos</td>
+                  <td>himenaeos</td>
+                  <td>Curabitur</td>
+                </tr>
+                <tr>
+                  <td>1,015</td>
+                  <td>sodales</td>
+                  <td>ligula</td>
+                  <td>in</td>
+                  <td>libero</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div  -->
+    
+    
+    
+    
+    <!-- button class="link-like" data-a11y-dialog-show="my-accessible-dialog">Open the dialog window</button -->
+    
+    
+    
+    
+    <main class="main" id="main" aria-label="Content">
+    <div class="dialog" aria-hidden="true" id="my-accessible-dialog">
+      <div class="dialog-overlay" tabindex="-1" data-a11y-dialog-hide></div>
+      <div class="dialog-content" aria-labelledby="dialogTitle" aria-describedby="dialogDescription" role="dialog">
+        <div role="document">
+        
+          <h1 id="dialogTitle">Welcome to SPACEREST!</h1>
+
+          <p id="dialog1">Welcome to SpaceREST!</p>
+          
+          <p id="dialog2">SEO to go in here</p>
+  
+  
+          <button data-a11y-dialog-hide class="dialog-close" title="Close this window">&times;</button>
+        </div>
+      </div>
+    </div>
+    
+    
+   </main> 
+    
+    
+    
+    
+    
+  
+    
+     <!-- The core React library -->
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-with-addons.js"></script -->
+    
+    <!-- The ReactDOM Library -->
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.js"></script -->
+    
+    <!-- React Router -->
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.0.0/ReactRouter.js"></script -->
+    
+    <!-- Babel for JSX -->
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script -->
+    
+
+
+
+
+<script id="text-template" type="text/x-handlebars-template">
+  {{#each .}}
+   Hello {{name}}
+  {{/each}}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+  <!-- Page.js Router -->
+  <script src="js/navigo.js"></script>
+
+  <!-- A11y Accessible Dialog box -->
+  <script src="js/a11y-dialog.js"></script>
+  
+  <!-- Axios for REST GETS -->
+  <script src="js/axios.js"></script>
+  
+  <!-- How we pixelate our images -->
+  <script src="js/pixelate.js"></script>
+  
+  <!-- Input detection -->
+  <script src="js/keypress.js"></script>
+  
+  <!-- Custom scripts -->
+  <script src="js/space-rest.js"></script>
+  
+  
+
+
+
+</body>
+</html>
