@@ -7,6 +7,8 @@
 
  
 /* Homescreen */
+
+    /* Load photo of day into Handlebars? */
     /* homescreen loading part of the view.js */
     /* Model to load photo of day */
   
@@ -87,17 +89,32 @@
    
     // Configuraiton
     settings: {
-        nasaKey:            'Xviwor5Dq7DoPAYge8grYDkRWDHpNXORUobbJmEG', // Our API Key
-        viewUserScore:      document.getElementById("userScore"),       // User Score
-        viewScreenTitle:    document.getElementById("screen-title"),   // Our SpaceREST logo
-        viewBackground:     document.getElementById("screen-background"),   // Background image holder
+        
+        // URLS
+        
+            nasaKey:        'Xviwor5Dq7DoPAYge8grYDkRWDHpNXORUobbJmEG',
             apodAPIurl:     'https://api.nasa.gov/planetary/apod?date=',
-            apodFallback:   'http://apod.nasa.gov/apod/image/1605/M42_HaGB_Spitzer_PortraitR.jpg',
-            apodSelector:   document.getElementById('backgroundAPOD'),
-
-        viewLanding:        document.getElementById("screen-landing"), // POst-title landing page
+            apodFallback:   'https://apod.nasa.gov/apod/image/1605/M42_HaGB_Spitzer_PortraitR.jpg',
+            
+        
+        // Elements
+        viewUserScore:      document.getElementById("userScore"),       // User Score
+        
+        viewScreenTitle:    document.getElementById("screen-title"),   // Our SpaceREST logo
+        
         viewParser:         document.getElementById("screen-parser"),
         controllerParser:   document.getElementById("textParser"),
+        
+        viewBackground:     document.getElementById("screen-background"),   // Background image holder
+        viewAPODSelector:   document.getElementById('backgroundAPOD'),
+
+        viewLanding:        document.getElementById("screen-landing"), // POst-title landing page
+        
+        
+        
+        
+        
+
         
         backgroundImage:    false,
         homepageLogo:       false,
@@ -119,7 +136,7 @@
 
       this.controllerHomeScreenParser();
       
-      if(spaceRESTmodule.settings.apodSelector.title == ''){
+      if(spaceRESTmodule.settings.viewAPODSelector.title == ''){
         this.getPhotoOfTheDay();   
       }
        
@@ -145,7 +162,12 @@
       this.controllerStartParser();
       
       
-      this.getMyAsteroids();
+        this.getMyAsteroids();
+      
+      
+        // Just curiosity now. 
+        this.getThisRover("curiosity");
+ 
  
     },
      
@@ -238,7 +260,7 @@
         parserListener.sequence_combo("p h o t o enter", function() {
             
             spaceRESTmodule.settings.controllerParser.value = "";
-            spaceRESTmodule.spaceRESTmodal(spaceRESTmodule.settings.apodSelector.title,spaceRESTmodule.settings.apodSelector.alt, "");
+            spaceRESTmodule.spaceRESTmodal(spaceRESTmodule.settings.viewAPODSelector.title,spaceRESTmodule.settings.viewAPODSelector.alt, "");
             spaceRESTmodule.controllerResetParser();
             
         }, true);
@@ -356,15 +378,15 @@
  
  
  
- // Indiv Asteroid: https://api.nasa.gov/neo/rest/v1/neo/3015691?api_key=DEMO_KEY
-
+ 
  
  
  
    // Gets asteroids of the day
    getMyAsteroids: function(){
        
-    
+    // Indiv Asteroid: https://api.nasa.gov/neo/rest/v1/neo/3015691?api_key=DEMO_KEY
+
     // Query Today's feed
     axios.get('https://api.nasa.gov/neo/rest/v1/feed/today?api_key=' + spaceRESTmodule.settings.nasaKey)
     
@@ -406,22 +428,10 @@
         };
 
 
-_applyAsteroidsToTemplate();
+    _applyAsteroidsToTemplate();
    
     
-    
-    
-      
-
-
-
-
-
-
-
-
-
-
+ 
      
       }).catch(function(asteroids) {
      //   console.log('Error Asteroids!')
@@ -453,7 +463,7 @@ _applyAsteroidsToTemplate();
         var _daysbehind = daysback;
         
         // Event Handler for the loading of the image.  Then Pixelate it!
-        this.settings.apodSelector.onload = function(){
+        this.settings.viewAPODSelector.onload = function(){
           this.pixelate();
         };
         
@@ -477,9 +487,9 @@ _applyAsteroidsToTemplate();
                 if(apod.data.media_type == 'image'){
                     // console.log("I am an image");
                     
-                   spaceRESTmodule.settings.apodSelector.src = apod.data.url;
-                   spaceRESTmodule.settings.apodSelector.title = apod.data.title;
-                   spaceRESTmodule.settings.apodSelector.alt = apod.data.explanation;
+                   spaceRESTmodule.settings.viewAPODSelector.src = apod.data.url;
+                   spaceRESTmodule.settings.viewAPODSelector.title = apod.data.title;
+                   spaceRESTmodule.settings.viewAPODSelector.alt = apod.data.explanation;
                    
                //    spaceRESTmodule.spaceRESTmodal("About this image", apod.data.title + ": " + apod.data.explanation, apod.data.date);
                 
@@ -491,7 +501,7 @@ _applyAsteroidsToTemplate();
           }
           
           ).catch(function(asteroids) {
-            // apodSelector.src = apodFallback;       // console.log('Error Retreving Photo of the day!');
+            // viewAPODSelector.src = apodFallback;       // console.log('Error Retreving Photo of the day!');
          });
             
             
@@ -514,22 +524,78 @@ _applyAsteroidsToTemplate();
      
      
      
+// Loads rover photos. Defaults to Curiosity
+    getThisRover: function(roverName="curiosity", daysback=10) {
+    
+        // Accepts other over names.
+        var _roverName = roverName;
+        
+        // The number of times we'll try hitting NASA's API before giving up
+        var _daysbehind = daysback;
+        
+        
+        // We loop the dates back in time. Starting 3 days back
+        var i;
+        for (i=3; i < daysback; i++){
+            
+            var yesterdayString = spaceRESTmodule.getpastDate(i);
+            
+            axios.get('https://api.nasa.gov/mars-photos/api/v1/rovers/' + _roverName + '/photos?earth_date=' + yesterdayString + '&api_key=' + this.settings.nasaKey)
+                .then(function(rover){
+                    
+                if(rover.data.photos){
+                    console.log(rover.data); 
+                    
+                        var _applyRoversToTemplate = function(){
+            
+            // Selects asteroid array based on date
+      //      var _firstLevelDownAsteroids = _getAsteroidfeedDate();
+      //      var _scopedAsteroids = asteroids.data.near_earth_objects[_firstLevelDownAsteroids];
+
+
+            // Handlebars Template
+            var source   = document.getElementById('rover-template').innerHTML;
+            var template = Handlebars.compile(source);
+            
+            // Loads just the astroids, no links
+            var context = rover.data;
+            var html    = template(context);
+ 
+            document.getElementById('roverListing').innerHTML = html;
+            
+        };
+        
+        
+        
+        _applyRoversToTemplate();
+                }
+              
+    
+            }).catch(function(rover) {
+                console.log('Error communicating with Mars!');
+            });
+            
+            
+           return true;
+        } // Loop
+        
+        
+        
+        
      
-      getThisRover: function(roverName) {
-          var _roverName = roverName;
-   
-           var yesterdayString = spaceRESTmodule.getpastDate(4);
-              axios.get('https://api.nasa.gov/mars-photos/api/v1/rovers/' + _roverName + '/photos?earth_date=' + yesterdayString + '&api_key=' + spaceRESTmodule.settings.nasaKey)
-              .then(function(rover){
-                console.log(rover.data); // ex.: { user: 'Your User'}
-                
-                
-                
-                
-              }).catch(function(rover) {
-                console.log('Error!');
-             });
-    },
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+    },  // Get Rover
      
      
      
