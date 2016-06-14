@@ -71,6 +71,7 @@
         
         <div id="screen-landing-rovers">
           <h5>Rovers</h5>
+          <div id="roverListing"></div>
         </div>
          
     </div>
@@ -366,7 +367,7 @@
 
 <script id="text-template" type="text/x-handlebars-template">
   {{#each .}}
-   Hello {{name}}
+   <br/>Asteroid: {{name}}
   {{/each}}
 </script>
 
@@ -375,7 +376,11 @@
 
 
 
-
+<script id="rover-template" type="text/x-handlebars-template">
+  {{#photos}}
+   <br/>Mars: {{id}}<br/><img src="{{img_src}}" />
+  {{/photos}}
+</script>
 
 
 
